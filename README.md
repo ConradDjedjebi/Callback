@@ -1,5 +1,5 @@
 # Arduino Callback
-Affero General Public Licence v3
+General Public Licence v3
 
 ## PURPOSE OF THIS C++ Library:
 
@@ -13,4 +13,4 @@ Affero General Public Licence v3
 
 ## COPYRIGHTS:
 
-- AGPLv3
+- GPLv3

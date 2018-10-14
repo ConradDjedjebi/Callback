@@ -34,50 +34,49 @@ typedef void (*CallBackType)();
 
 
 class Callback{
-private:
-	void Create(unsigned long int us, CallBackType callback, bool isSingle, bool hasEventDuration);
-	unsigned long int usInterval;
-	unsigned long int usEventDuration;		
-	bool blEnabled;
-	bool blSingleShot;
-	bool blOffTimer = false;	
-	bool blEventDuration;
-	CallBackType onRun;
-	CallBackType onStop;
-	bool tick();
-	unsigned long startTime;
-	unsigned long LastTime;
-	unsigned long DiffTime;//used when We pause the Callback and need to resume
+	private:
+		void Create(unsigned long int us, CallBackType callback, bool isSingle, bool hasEventDuration);
+		unsigned long int usInterval;
+		unsigned long int usEventDuration;
+		bool blEnabled;
+		bool blSingleShot;
+		bool blOffTimer = false;
+		bool blEventDuration;
+		CallBackType onRun;
+		CallBackType onStop;
+		bool tick();
+		unsigned long startTime;
+		unsigned long LastTime;
+		unsigned long DiffTime;//used when We pause the Callback and need to resume
+	public:
+		Callback(void);
+		Callback(unsigned long int us);
+		Callback(unsigned long int us, CallBackType callback);
+		Callback(unsigned long int us, CallBackType callback, bool isSingle);
+		~Callback();
 
-public:
-	Callback(void);
-	Callback(unsigned long int us);
-	Callback(unsigned long int us, CallBackType callback);
-	Callback(unsigned long int us, CallBackType callback, bool isSingle);
-	~Callback();
-
-	void setInterval(unsigned long int us);
-	void setEventDuration(bool bool_hasEventDuration, unsigned long int us);	
-	void setEnabled(bool Enabled);
-	void setSingleShot(bool isSingle);
-	void setOnTimer(CallBackType callback);
-	void setOffTimer(CallBackType callback);	
-	void start();	
-	void resume();
-	void pause();
-	void stop();
-	void restart();	
-	void update();
+		void setInterval(unsigned long int us);
+		void setEventDuration(bool bool_hasEventDuration, unsigned long int us);
+		void setEnabled(bool Enabled);
+		void setSingleShot(bool isSingle);
+		void setOnTimer(CallBackType callback);
+		void setOffTimer(CallBackType callback);
+		void start();
+		void resume();
+		void pause();
+		void stop();
+		void restart();
+		void update();
 
 
-	unsigned long int getInterval();
-	unsigned long int getCurrentTime();
-	CallBackType getOnTimerCallback();
+		unsigned long int getInterval();
+		unsigned long int getCurrentTime();
+		CallBackType getOnTimerCallback();
 
-	bool isEnabled();
-	bool isSingleShot();
-	bool hasOffFunction();	
-	bool hasEventDuration();
+		bool isEnabled();
+		bool isSingleShot();
+		bool hasOffFunction();
+		bool hasEventDuration();
 
 };
 
