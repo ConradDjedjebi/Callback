@@ -1,5 +1,5 @@
 /****************************************************************************************************
-  Callback.cpp
+  CallbackDuino.cpp
 
   License: GNU GPLv3
 
@@ -22,16 +22,16 @@ Version Modified By Date     Comments
 ------- ----------- -------- --------
 0001    A BORDIN      13/04/15 ArduinoTimerObject Library (https://github.com/aron-bordin/ArduinoTimerObject)
 0002    C DJEDJEBI    12/10/18 Added support for event duration (setEventDuration, hasEventDuration, etc.)
-0003    C DJEDJEBI    12/10/18 ArduinoTimerObject Library renamed to Callback
+0003    C DJEDJEBI    14/10/18 ArduinoTimerObject Library renamed to CallbackDuino
 ****************************************************************************************************/
 
-#include "Callback.h"
+#include "CallbackDuino.h"
 
 
 /**
  * Constructeur de l objet callback
  */
-Callback::Callback(){
+CallbackDuino::CallbackDuino(){
 	Create(100, NULL, false, false);
 }
 
@@ -41,7 +41,7 @@ Callback::Callback(){
  *
  * \param unsigned long int us : période à laquelle le callback execute la fonction qui lui est attachée
  */
-Callback::Callback(unsigned long int us){
+CallbackDuino::CallbackDuino(unsigned long int us){
 	Create(us, NULL, false, false);
 }
 
@@ -52,7 +52,7 @@ Callback::Callback(unsigned long int us){
  * \param unsigned long int us : période à laquelle le callback execute la fonction qui lui est attachée
  * \param CallbackType callback : la fonction à appeler après écoulement de la période spécifiée.
  */
-Callback::Callback(unsigned long int us, CallBackType callback){
+CallbackDuino::CallbackDuino(unsigned long int us, CallBackType callback){
 	Create(us, callback, false, false);
 }
 
@@ -64,7 +64,7 @@ Callback::Callback(unsigned long int us, CallBackType callback){
  * \param CallbackType callback : la fonction à appeler après écoulement de la période spécifiée.
  * \param bool isSingle : le paramètre indiquant si le callback doit être lancé sur une seule période.
  */
-Callback::Callback(unsigned long int us, CallBackType callback, bool isSingle){
+CallbackDuino::CallbackDuino(unsigned long int us, CallBackType callback, bool isSingle){
 	Create(us, callback, isSingle, false);
 }
 
@@ -72,7 +72,7 @@ Callback::Callback(unsigned long int us, CallBackType callback, bool isSingle){
 /**
  * Destructeur de l objet callback
  */
-Callback::~Callback(){}
+CallbackDuino::~CallbackDuino(){}
 
 /**
  * Initialisation des différents paramètres intervenant dans le fonctionnement du callback
@@ -82,7 +82,7 @@ Callback::~Callback(){}
  * \param bool isSingle : le paramètre indiquant si le callback doit être lancé sur une seule période.
  * \param bool hasEventDuration : paramètre indiquant si le callback doit être exécuté, de manière répétée, mais sur une durée gloabale donnée
  */
-void Callback::Create(unsigned long int us, CallBackType callback, bool isSingle, bool hasEventDuration){
+void CallbackDuino::Create(unsigned long int us, CallBackType callback, bool isSingle, bool hasEventDuration){
 	setInterval(us);
 	setEnabled(false);
 	setSingleShot(isSingle);
@@ -96,7 +96,7 @@ void Callback::Create(unsigned long int us, CallBackType callback, bool isSingle
  *
  * \param unsigned long int : période d'execution de la fonction à appellera
  */
-void Callback::setInterval(unsigned long int us){
+void CallbackDuino::setInterval(unsigned long int us){
 	usInterval = (us > 0) ? us : 0;
 }
 
@@ -107,7 +107,7 @@ void Callback::setInterval(unsigned long int us){
  * \param bool bool_hasEventDuration : booléen indiquant si le callback a une durée global
  * \param unsigned long int us : la durée globale voulue pour ce callback
  */
-void Callback::setEventDuration(bool bool_hasEventDuration, unsigned long int us){
+void CallbackDuino::setEventDuration(bool bool_hasEventDuration, unsigned long int us){
 	blEventDuration = bool_hasEventDuration;
 	usEventDuration = (us > 0) ? us : 0;
 }
@@ -118,7 +118,7 @@ void Callback::setEventDuration(bool bool_hasEventDuration, unsigned long int us
  *
  * \param bool Enable : booléen indiquant l'état activé ou non du callback
  */
-void Callback::setEnabled(bool Enabled){
+void CallbackDuino::setEnabled(bool Enabled){
 	blEnabled = Enabled;
 }
 
@@ -127,7 +127,7 @@ void Callback::setEnabled(bool Enabled){
  *
  * \param bool isSingle : booléen indiquant si le callback s'excureta juste sur un cycle.
  */
-void Callback::setSingleShot(bool isSingle){
+void CallbackDuino::setSingleShot(bool isSingle){
 	blSingleShot = isSingle;
 }
 
@@ -136,7 +136,7 @@ void Callback::setSingleShot(bool isSingle){
  *
  * \param CallBackType callback : la fonction qui sera appelée à l'issue d'une période du callback.
  */
-void Callback::setOnTimer(CallBackType callback){
+void CallbackDuino::setOnTimer(CallBackType callback){
 	onRun = callback;
 }
 
@@ -145,7 +145,7 @@ void Callback::setOnTimer(CallBackType callback){
  *
  * \param CallBackType callback : la fonction qui sera appelée à l'issue de la durée globale du callback, lors de l'arrêt du timer.
  */
-void Callback::setOffTimer(CallBackType callback){
+void CallbackDuino::setOffTimer(CallBackType callback){
 	blOffTimer = true;
 	onStop = callback;
 }
@@ -153,7 +153,7 @@ void Callback::setOffTimer(CallBackType callback){
 /**
  * Methode pour mettre en marche le callback
  */
-void Callback::start(){
+void CallbackDuino::start(){
 	LastTime = micros();
 	startTime = micros();
 	setEnabled(true);	
@@ -162,7 +162,7 @@ void Callback::start(){
 /**
  * Methode pour remettre en route le callback après une mise en pause
  */
-void Callback::resume(){
+void CallbackDuino::resume(){
 	LastTime = micros() - DiffTime;
 	setEnabled(true);
 }
@@ -170,7 +170,7 @@ void Callback::resume(){
 /**
  * Methode pour arrêter le callback
  */
-void Callback::stop(){
+void CallbackDuino::stop(){
 	setEnabled(false);
 	if(hasOffFunction())
 	{
@@ -181,7 +181,7 @@ void Callback::stop(){
 /**
  * Methode pour redémarrer le callback
  */
-void Callback::restart(){
+void CallbackDuino::restart(){
 	stop();	
 	start();
 }
@@ -190,7 +190,7 @@ void Callback::restart(){
 /**
  * Methode pour mettre en pause le callback
  */
-void Callback::pause(){
+void CallbackDuino::pause(){
 	DiffTime = micros() - LastTime;
 	setEnabled(false);
 	if(hasOffFunction())
@@ -203,7 +203,7 @@ void Callback::pause(){
 /**
  * Methode pour executer la fonction associée au callback si la période d'activation est atteinte
  */
-void Callback::update(){
+void CallbackDuino::update(){
 	if(tick())
 	{
 		onRun();
@@ -214,7 +214,7 @@ void Callback::update(){
 /**
  * Methode pour vérifier si la période d'activation de la fonction associée au callback est atteinte
  */
-bool Callback::tick(){
+bool CallbackDuino::tick(){
 	unsigned long int val, dureeTick, dureeEvent;
 	val = micros();
 	if(val < LastTime) // //micros restarted
@@ -263,7 +263,7 @@ bool Callback::tick(){
  *
  * \return unsigned long int : usInterval
  */
-unsigned long int Callback::getInterval(){
+unsigned long int CallbackDuino::getInterval(){
 	return usInterval;
 }
 
@@ -272,7 +272,7 @@ unsigned long int Callback::getInterval(){
  *
  * \return unsigned long int : durée écoulée
  */
-unsigned long int Callback::getCurrentTime(){
+unsigned long int CallbackDuino::getCurrentTime(){
 	return (unsigned long int)(micros() - LastTime);
 }
 
@@ -281,7 +281,7 @@ unsigned long int Callback::getCurrentTime(){
  *
  * \return CallBackType onRun : fonction à exécuter à chaque cycle
  */
-CallBackType Callback::getOnTimerCallback(){
+CallBackType CallbackDuino::getOnTimerCallback(){
 	return onRun;
 }
 
@@ -290,7 +290,7 @@ CallBackType Callback::getOnTimerCallback(){
  *
  * \return bool blEnabled : attribut indiquant si le callback est activé
  */
-bool Callback::isEnabled(){
+bool CallbackDuino::isEnabled(){
 	return blEnabled;
 }
 
@@ -300,7 +300,7 @@ bool Callback::isEnabled(){
  *
  * \return bool blSingleShot : attribut indiquant si le callback possède un seul cycle
  */
-bool Callback::isSingleShot(){
+bool CallbackDuino::isSingleShot(){
 	return blSingleShot;
 }
 
@@ -309,7 +309,7 @@ bool Callback::isSingleShot(){
  *
  * \return bool blOffTimer : attribut indiquant si le callback possède une fonction à exécuter lors de son extinction
  */
-bool Callback::hasOffFunction(){
+bool CallbackDuino::hasOffFunction(){
 	return blOffTimer;
 }
 
@@ -318,6 +318,6 @@ bool Callback::hasOffFunction(){
  *
  * \return bool blEventDuration : attribut indiquant si le callback possède une durée globale
  */
-bool Callback::hasEventDuration(){
+bool CallbackDuino::hasEventDuration(){
 	return blEventDuration;
 }

@@ -1,5 +1,5 @@
 /****************************************************************************************************
-  Callback.h
+  CallbackDuino.h
 
   License: GNU GPLv3
 
@@ -22,18 +22,18 @@ Version Modified By Date     Comments
 ------- ----------- -------- --------
 0001    A BORDIN      13/04/15 ArduinoTimerObject Library (https://github.com/aron-bordin/ArduinoTimerObject)
 0002    C DJEDJEBI    12/10/18 Added support for event duration (setEventDuration, hasEventDuration, etc.)
-0003    C DJEDJEBI    12/10/18 ArduinoTimerObject Library renamed to Callback
+0003    C DJEDJEBI    14/10/18 ArduinoTimerObject Library renamed to CallbackDuino
 ****************************************************************************************************/
 
 #include "stdlib.h"
 #include "Arduino.h"
 
-#ifndef CALLBACK_H
-#define CALLBACK_H
+#ifndef CALLBACK_DUINO_H
+#define CALLBACK_DUINO_H
 typedef void (*CallBackType)();
 
 
-class Callback{
+class CallbackDuino{
 	private:
 		void Create(unsigned long int us, CallBackType callback, bool isSingle, bool hasEventDuration);
 		unsigned long int usInterval;
@@ -49,11 +49,11 @@ class Callback{
 		unsigned long LastTime;
 		unsigned long DiffTime;//used when We pause the Callback and need to resume
 	public:
-		Callback(void);
-		Callback(unsigned long int us);
-		Callback(unsigned long int us, CallBackType callback);
-		Callback(unsigned long int us, CallBackType callback, bool isSingle);
-		~Callback();
+		CallbackDuino(void);
+		CallbackDuino(unsigned long int us);
+		CallbackDuino(unsigned long int us, CallBackType callback);
+		CallbackDuino(unsigned long int us, CallBackType callback, bool isSingle);
+		~CallbackDuino();
 
 		void setInterval(unsigned long int us);
 		void setEventDuration(bool bool_hasEventDuration, unsigned long int us);
@@ -81,4 +81,4 @@ class Callback{
 };
 
 
-#endif // CALLBACK_H
+#endif // CALLBACK_DUINO_H
